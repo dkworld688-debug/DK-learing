@@ -1,0 +1,8 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Returning…</title><script src="auth.js"></script></head>
+<body style="background:#020308;color:#fff;font-family:Segoe UI,Arial;display:grid;place-items:center;min-height:100vh"><p>Returning… <a style="color:#4da6ff" href="learning.html">Learning</a></p>
+<script>
+/* Go back to the page the teaching PDF was opened from */
+(function(){var t='learning.html';try{var r=sessionStorage.getItem('DK_RETURN');
+ if(r){var u=new URL(r,location.href);if(u.origin===location.origin&&/\.html$/.test(u.pathname)&&!/exit\.html$/.test(u.pathname))t=u.pathname.split('/').pop()+u.search}}catch(e){}
+ (window.top||window).location.replace(t)})();
+</script></body></html>

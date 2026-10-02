@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="referrer" content="no-referrer"><script src="auth.js"></script>
+<title>DK - Services</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#08080c;color:#fff;font-family:'Segoe UI',Arial,sans-serif;min-height:100vh;overflow-x:hidden}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:-1}
+nav{max-width:1200px;margin:auto;text-align:right;padding:16px 20px}
+nav a{color:#4da6ff;text-decoration:none;margin-left:16px;font-size:16px;transition:.3s}
+nav a:hover{color:orange;text-shadow:0 0 10px orange}
+.header{text-align:center;padding:40px 20px}
+.logo{font-size:clamp(36px,8vw,70px);font-weight:bold;letter-spacing:8px;color:#00d4ff;text-shadow:0 0 20px #00d4ff;animation:float 3s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px)}}
+.intro{padding:10px 50px;font-size:20px;max-width:1200px;margin:auto}
+.service-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:40px;padding:50px;max-width:1200px;margin:auto}
+.service-card{display:block;color:inherit;text-decoration:none;background:rgba(255,255,255,.05);border:1px solid rgba(0,212,255,.3);border-radius:15px;padding:40px 20px;text-align:center;backdrop-filter:blur(10px);transition:.4s}
+a.service-card:hover{transform:translateY(-15px) rotateX(6deg);background:rgba(0,212,255,.25);box-shadow:0 15px 40px rgba(0,212,255,.4);border-color:#00d4ff}
+.service-icon{font-size:50px;margin-bottom:15px}.service-title{font-size:22px;font-weight:bold;margin-bottom:10px;color:#00d4ff}
+.service-desc{font-size:14px;color:#aaa;line-height:1.6}.soon{display:inline-block;margin-top:12px;font-size:12px;color:#ff9d00}
+</style></head><body>
+<canvas id="bg"></canvas>
+<nav><a href="DK.html">Home</a><a href="services.html">Services</a><a href="contactsus.html">Contact Us</a><a href="#" id="logoutLink">Logout</a></nav>
+<div class="header"><div class="logo">DK Services</div></div>
+<div class="intro">With Us...<br>you can</div>
+<div class="service-grid">
+<a class="service-card" href="coding.html"><div class="service-icon">💻</div><div class="service-title">Coding</div><div class="service-desc">Websites, apps and software development. Learn with us.</div></a>
+<a class="service-card" href="learning.html"><div class="service-icon">📚</div><div class="service-title">Learning</div><div class="service-desc">ICT classes, tutorials and exam preparation for all grades.</div></a>
+<div class="service-card"><div class="service-icon">🎶</div><div class="service-title">Music</div><div class="service-desc">Relax and enjoy music while you learn and code.</div><span class="soon">Coming soon</span></div>
+<a class="service-card" href="contactsus.html"><div class="service-icon">🎬</div><div class="service-title">Movies</div><div class="service-desc">Tamil, English, Hindi, Hollywood and Bollywood movies with Sinhala subtitles. Contact us to get them.</div></a>
+</div>
+<script src="fx.js"></script><script src="dk3d.js"></script></body></html>

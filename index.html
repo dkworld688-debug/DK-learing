@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="referrer" content="no-referrer">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DK PORTAL - 3D LOGIN</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;color:#fff;font-family:'Space Grotesk',sans-serif;overflow-x:hidden;min-height:100vh}
+#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
+.container{position:relative;z-index:2;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
+.card{width:430px;background:rgba(15,15,15,0.75);backdrop-filter:blur(25px);border:1px solid rgba(255,255,255,0.1);border-radius:30px;padding:35px;box-shadow:0 0 100px rgba(0,212,255,0.2);animation:float 4s ease-in-out infinite}
+@keyframes float{0%,100%{transform:perspective(1000px) rotateY(-2deg) translateY(0)}50%{transform:perspective(1000px) rotateY(-2deg) translateY(-8px)}}
+.logo{font-family:'Orbitron',sans-serif;font-size:48px;font-weight:900;letter-spacing:8px;background:linear-gradient(90deg,#00d4ff,#8b5cf6,#ff00ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center}
+.sub{color:#00d4ff;text-align:center;font-size:11px;letter-spacing:4px;margin:5px 0 25px;font-family:'Orbitron',sans-serif}
+.tabs{display:flex;gap:8px;background:rgba(255,255,255,0.05);border-radius:20px;padding:5px;margin-bottom:20px;border:1px solid rgba(255,255,255,0.05)}
+.tabs button{flex:1;padding:10px;border-radius:15px;border:none;background:transparent;color:#888;cursor:pointer;font-weight:700;font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:1px;transition:0.3s}
+.tabs button.active{background:#fff;color:#000;box-shadow:0 5px 20px rgba(255,255,255,0.2)}
+input{width:100%;padding:14px 18px;margin-top:12px;border-radius:15px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#fff;outline:none;transition:0.3s;font-size:14px}
+input:focus{border-color:#00d4ff;box-shadow:0 0 20px rgba(0,212,255,0.3)}
+.btn{width:100%;padding:14px;margin-top:15px;border-radius:15px;border:none;font-weight:900;letter-spacing:1px;cursor:pointer;transition:0.3s;font-family:'Orbitron',sans-serif}
+.btn-primary{background:linear-gradient(90deg,#00d4ff,#8b5cf6);color:#fff;box-shadow:0 10px 30px rgba(0,212,255,0.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 15px 40px rgba(0,212,255,0.5)}
+.check{display:flex;align-items:center;gap:10px;margin:15px 0;font-size:12px;color:#aaa;background:rgba(255,255,255,0.03);padding:10px 12px;border-radius:10px}
+.lang{position:fixed;top:20px;right:20px;z-index:10;display:flex;gap:5px;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:20px;padding:5px}
+.lang button{padding:6px 14px;border-radius:15px;border:none;background:transparent;color:#fff;cursor:pointer;font-size:11px;font-weight:700}.lang button.active{background:#fff;color:#000}
+#otpBox{display:none;margin-top:15px;padding:20px;background:rgba(0,212,255,0.08);border:1px dashed rgba(0,212,255,0.5);border-radius:20px;animation:pop 0.5s}#otpBox.show{display:block}
+@keyframes pop{0%{transform:scale(0.85);opacity:0}100%{transform:scale(1);opacity:1}}
+.msg{margin-top:12px;padding:10px;border-radius:10px;font-size:12px;display:none;text-align:center}.msg.show{display:block}.ok{background:rgba(16,185,129,0.15);color:#10b981;border:1px solid rgba(16,185,129,0.3)}.bad{background:rgba(239,68,68,0.15);color:#ff6b6b;border:1px solid rgba(239,68,68,0.3)}
+.footer{position:fixed;bottom:12px;left:0;width:100%;text-align:center;z-index:2;color:rgba(255,255,255,0.25);font-size:9px;letter-spacing:3px;font-family:'Orbitron',sans-serif}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<div class="lang"><button class="active" onclick="setLang('en')" id="btnEn">EN</button><button onclick="setLang('si')" id="btnSi">SI</button></div>
+
+<div class="container">
+<div class="card">
+<div class="logo">DK</div>
+<div class="sub" id="tSub">PORTAL • SECURE ACCESS</div>
+
+<div class="tabs">
+<button id="tabReg" class="active" onclick="switchMode('reg')">REGISTER</button>
+<button id="tabLog" onclick="switchMode('log')">LOGIN</button>
+</div>
+
+<!-- REGISTER FORM -->
+<div id="regForm">
+<input id="name" maxlength="60" autocomplete="username" placeholder="Username">
+<input id="email" type="email" placeholder="Email">
+<input id="phone" placeholder="Phone - 0764646652">
+<input id="p1" autocomplete="new-password" type="password" placeholder="Password">
+<input id="p2" autocomplete="new-password" type="password" placeholder="Confirm Password">
+<input id="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+<div class="check"><input type="checkbox" id="robotReg" style="width:18px;height:18px;accent-color:#00d4ff"><label for="robotReg" class="tRobot">I'm not a robot</label></div>
+<button class="btn btn-primary" id="btnSend" onclick="doRegister()">REGISTER →</button>
+</div>
+
+<!-- LOGIN FORM - දෙවනි පාර Password එක විතරයි! -->
+<div id="logForm" class="hidden">
+<input id="logName" placeholder="Username / Email">
+<input id="logPass" autocomplete="current-password" type="password" placeholder="Password">
+<div class="check"><input type="checkbox" id="robotLog" style="width:18px;height:18px;accent-color:#00d4ff"><label for="robotLog" class="tRobot">I'm not a robot</label></div>
+<button class="btn btn-primary" id="btnLogin" onclick="doLogin()">LOGIN →</button>
+<p style="text-align:center;margin-top:12px;font-size:11px;color:#666"><a href="#" style="color:#00d4ff;text-decoration:none" onclick="switchMode('reg')" id="tForgot">No account? Register here</a></p>
+</div>
+
+<div class="msg" id="msg"></div>
+</div>
+</div>
+
+<div class="footer">DK PORTAL • 2026</div>
+
+<script src="auth.js"></script>
+<script>
+const tr={en:{fill:'Fill all fields!',passNo:'Passwords do not match!',weak:'Password: 8+ chars with a letter and a number.',user:'Username: 3-20 letters, numbers, _ only.',mail:'Invalid email.',tel:'Invalid phone (e.g. 0764646652).',exists:'Username or email already registered.',done:'Registered! Redirecting...',noUser:'User not found! Register first.',wrongPass:'Wrong username or password.',loginOk:'Login success!',lock:'Too many attempts. Try again in 5 minutes.',reg:'REGISTER →',login:'LOGIN →',robot:"I'm not a robot",robotNo:'Tick the robot check!',nc:'Open via https:// or localhost (crypto needed).'},
+si:{fill:'සියල්ල පුරවන්න!',passNo:'මුරපද සමාන නැත!',weak:'මුරපදය: අකුරු+ඉලක්කම් සහිත 8+ ක්.',user:'නම: අකුරු/ඉලක්කම්/_ 3-20.',mail:'වැරදි Email.',tel:'වැරදි දුරකථන අංකය.',exists:'දැනටමත් ලියාපදිංචි වී ඇත.',done:'සාර්ථකයි! යොමු වෙමින්...',noUser:'User හමු නොවීය!',wrongPass:'නම හෝ මුරපදය වැරදියි.',loginOk:'ඇතුල් වුණා!',lock:'උත්සාහ වැඩියි. විනාඩි 5කින් නැවත උත්සාහ කරන්න.',reg:'ලියාපදිංචි →',login:'ඇතුල් වන්න →',robot:'මම Robot නෙවෙයි',robotNo:'Robot Tick කරන්න!',nc:'https:// හෝ localhost භාවිතා කරන්න.'}};
+let lang='en';const $=id=>document.getElementById(id),msgEl=$('msg');
+function show(t,k){msgEl.textContent=t;msgEl.className='msg show '+k}
+function setLang(l){lang=l;$('btnEn').classList.toggle('active',l==='en');$('btnSi').classList.toggle('active',l==='si');$('btnSend').textContent=tr[l].reg;$('btnLogin').textContent=tr[l].login;document.querySelectorAll('.tRobot').forEach(e=>e.textContent=tr[l].robot)}
+function switchMode(m){$('tabReg').classList.toggle('active',m==='reg');$('tabLog').classList.toggle('active',m==='log');$('regForm').classList.toggle('hidden',m!=='reg');$('logForm').classList.toggle('hidden',m!=='log');msgEl.className='msg'}
+const users=()=>{try{return JSON.parse(localStorage.getItem('DK_USERS_V2')||'{}')}catch(e){return{}}};
+async function doRegister(){
+ if($('website').value)return;if(!$('robotReg').checked)return show(tr[lang].robotNo,'bad');if(!window.crypto||!crypto.subtle)return show(tr[lang].nc,'bad');
+ const n=$('name').value.trim(),e=$('email').value.trim().toLowerCase(),ph=$('phone').value.trim().replace(/\s/g,''),p1=$('p1').value,p2=$('p2').value;
+ if(!n||!e||!ph||!p1||!p2)return show(tr[lang].fill,'bad');
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e))return show(tr[lang].mail,'bad');
+ if(!/^(0|\+94)7\d{8}$/.test(ph))return show(tr[lang].tel,'bad');
+ if(p1!==p2)return show(tr[lang].passNo,'bad');
+ if(p1.length<8||!/[A-Za-z]/.test(p1)||!/\d/.test(p1))return show(tr[lang].weak,'bad');
+ const U=users();if(U['u_'+n.toLowerCase()]||Object.values(U).some(u=>u.email===e))return show(tr[lang].exists,'bad');
+ const h=await DKAuth.hash(p1);U['u_'+n.toLowerCase()]={name:n,email:e,phone:ph,salt:h.salt,hash:h.hash};
+ localStorage.setItem('DK_USERS_V2',JSON.stringify(U));DKAuth.login(n);show(tr[lang].done,'ok');setTimeout(()=>location.href='DK.html',900)}
+async function doLogin(){
+ const u=$('logName').value.trim().toLowerCase(),p=$('logPass').value;
+ if(!u||!p)return show(tr[lang].fill,'bad');if(!$('robotLog').checked)return show(tr[lang].robotNo,'bad');if(!window.crypto||!crypto.subtle)return show(tr[lang].nc,'bad');
+ let L=JSON.parse(sessionStorage.getItem('DK_LOCK')||'{"n":0,"t":0}');
+ if(L.n>=5&&Date.now()-L.t<300000)return show(tr[lang].lock,'bad');
+ const U=users(),rec=U['u_'+u]||Object.values(U).find(x=>x.email===u);if(!rec)return show(tr[lang].noUser,'bad');
+ const h=await DKAuth.hash(p,rec.salt);
+ if(h.hash!==rec.hash){sessionStorage.setItem('DK_LOCK',JSON.stringify({n:L.n+1,t:Date.now()}));return show(tr[lang].wrongPass,'bad')}
+ sessionStorage.removeItem('DK_LOCK');DKAuth.login(rec.name);show(tr[lang].loginOk,'ok');setTimeout(()=>location.href='DK.html',700)}
+if(DKAuth.session())location.replace('DK.html');
+document.addEventListener('keydown',e=>{if(e.key==='Enter'){$('logForm').classList.contains('hidden')?doRegister():doLogin()}});
+</script>
+<script src="fx.js"></script><script src="dk3d.js"></script>
+</body>
+
+</html>
