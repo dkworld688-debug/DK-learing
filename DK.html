@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DK-Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+<meta name="referrer" content="no-referrer"><script src="auth.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#050508;color:#fff;font-family:'Space Grotesk',sans-serif;min-height:100vh;overflow-x:hidden}
+#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
+.content{position:relative;z-index:2}
+nav{display:flex;justify-content:space-between;align-items:center;padding:15px 40px;background:rgba(255,255,255,0.02);backdrop-filter:blur(15px);border-bottom:1px solid rgba(255,255,255,0.05);flex-wrap:wrap;gap:10px}
+.nav-left{display:flex;gap:8px;align-items:center}
+.nav-right{display:flex;gap:10px;align-items:center}
+nav a{color:#4da6ff;text-decoration:none;font-size:14px;font-weight:700;letter-spacing:1px;transition:0.3s;padding:8px 16px;border-radius:20px;border:1px solid transparent}
+nav a:hover{color:#fff;background:rgba(0,212,255,0.15);box-shadow:0 0 20px rgba(0,212,255,0.4);border-color:rgba(0,212,255,0.3)}
+.header{text-align:center;padding:35px 20px 10px}
+.logo{font-family:'Orbitron',sans-serif;font-size:90px;font-weight:900;letter-spacing:20px;color:#00d4ff;text-shadow:0 0 30px #00d4ff,0 0 60px #00d4ff;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0px) rotateX(5deg)}50%{transform:translateY(-15px) rotateX(-5deg)}}
+.slogan{text-align:center;color:#00d4ff;font-size:13px;letter-spacing:6px;margin-bottom:20px;font-family:'Orbitron',sans-serif;opacity:0.8}
+.gl{height:2px;background:linear-gradient(90deg,#ff00ff,#00d4ff,#00ff88);background-size:200% 200%;animation:lineMove 4s linear infinite;margin:20px 50px;box-shadow:0 0 20px #00d4ff;border-radius:10px}
+@keyframes lineMove{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+.intro-text{text-align:center;max-width:800px;margin:0 auto;padding:30px;font-size:18px;line-height:1.8;color:#ccc;background:rgba(255,255,255,0.03);backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,0.05);border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.5);transition:0.5s}
+.intro-text:hover{transform:scale(1.02);box-shadow:0 20px 60px rgba(0,212,255,0.2)}
+.gosection{max-width:800px;margin:40px auto;padding:20px}
+.gotitle{font-family:'Orbitron',sans-serif;font-size:45px;font-weight:900;margin-bottom:30px;letter-spacing:5px;background:linear-gradient(90deg,#fff,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.gn-button{display:flex;align-items:center;gap:15px;font-size:20px;font-weight:700;color:#fff;text-decoration:none;margin:15px 0;padding:18px 25px;border:1px solid rgba(0,212,255,0.2);border-left:4px solid #00d4ff;background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);transition:0.4s;width:100%;border-radius:0 15px 15px 0;position:relative;overflow:hidden}
+.gn-button::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,212,255,0.2),transparent);transition:0.6s}.gn-button:hover::before{left:100%}
+.gn-button:hover{background:rgba(0,212,255,0.15);padding-left:35px;transform:translateX(10px);box-shadow:0 10px 30px rgba(0,212,255,0.3);color:#00d4ff}
+.icon{font-size:28px}
+.lang{position:fixed;top:15px;left:20px;z-index:10;display:flex;gap:5px;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:20px;padding:5px;border:1px solid rgba(255,255,255,0.1)}
+.lang button{padding:6px 14px;border-radius:15px;border:none;background:transparent;color:#fff;cursor:pointer;font-size:11px;font-weight:700}.lang button.active{background:#00d4ff;color:#000;box-shadow:0 0 15px rgba(0,212,255,0.5)}
+#userBar{display:flex;align-items:center;gap:10px;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);border-radius:20px;padding:8px 15px;font-size:12px;color:#00d4ff}
+#userBar .dot{width:8px;height:8px;background:#10b981;border-radius:50%;box-shadow:0 0 10px #10b981;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<div class="content">
+<div class="lang"><button class="active" onclick="setLang('en')" id="btnEn">EN</button><button onclick="setLang('si')" id="btnSi">SI</button></div>
+
+<nav>
+<div class="nav-left">
+<a href="DK.html" id="navHome">Home</a>
+<a href="services.html" id="navServices">Services</a>
+<a href="learning.html">Learning</a>
+<a href="coding.html">Coding</a>
+<a href="contactsus.html" id="navContact">Contact Us</a>
+</div>
+<div class="nav-right">
+<div id="userBar"><span class="dot"></span><span id="userText">Guest</span></div>
+<a href="#" onclick="DKAuth.logout();return false" id="navLogout" style="color:#ff6b6b;border-color:rgba(255,107,107,0.3)">Logout</a>
+</div>
+</nav>
+
+<div class="header"><div class="logo">DK</div></div>
+<div class="slogan" id="slogan">DK IS ALWAYS WITH YOU</div>
+<div class="gl"></div>
+
+<div class="intro-text" id="intro">
+We are building a community focused on coding, creativity, and entertainment.
+Explore our services to discover what we offer and enjoy your experience with DK.
+</div>
+
+<div class="gl"></div>
+
+<div class="gosection">
+<div class="gotitle" id="exploreTitle">EXPLORE</div>
+<a href="learning.html" class="gn-button"><span class="icon">📚</span><span id="learnTxt">Learning</span></a>
+<a href="coding.html" class="gn-button"><span class="icon">💻</span><span id="codeTxt">Coding</span></a>
+<a href="services.html" class="gn-button"><span class="icon">🚀</span><span id="servTxt">Services</span></a>
+</div>
+</div>
+
+<script>
+
+// LANG
+const dict={
+ en:{home:'Home',services:'Services',contact:'Contact Us',logout:'Logout',slogan:'DK IS ALWAYS WITH YOU',intro:'We are building a community focused on coding, creativity, and entertainment. Explore our services to discover what we offer and enjoy your experience with DK.',explore:'EXPLORE',learn:'Learning',code:'Coding',serv:'Services',welcome:'Welcome'},
+ si:{home:'මුල් පිටුව',services:'සේවා',contact:'අප අමතන්න',logout:'ඉවත් වන්න',slogan:'DK සැමවිටම ඔබ සමඟ',intro:'අපි coding, නිර්මාණශීලීත්වය සහ විනෝදාස්වාදය කේන්ද්‍ර කරගත් ප්‍රජාවක් ගොඩනඟමින් සිටිමු. අප පිරිනමන දේ සොයා ගැනීමට අපගේ සේවාවන් ගවේෂණය කර DK සමඟ ඔබේ අත්දැකීම භුක්ති විඳින්න.',explore:'ගවේෂණය',learn:'ඉගෙනීම',code:'කේතකරණය',serv:'සේවාවන්',welcome:'ආයුබෝවන්'}
+};
+let cl='en';
+function setLang(l){
+ cl=l;
+ document.getElementById('btnEn').classList.toggle('active',l==='en');
+ document.getElementById('btnSi').classList.toggle('active',l==='si');
+ document.getElementById('navHome').textContent=dict[l].home;
+ document.getElementById('navServices').textContent=dict[l].services;
+ document.getElementById('navContact').textContent=dict[l].contact;
+ document.getElementById('navLogout').textContent=dict[l].logout;
+ document.getElementById('slogan').textContent=dict[l].slogan;
+ document.getElementById('intro').textContent=dict[l].intro;
+ document.getElementById('exploreTitle').textContent=dict[l].explore;
+ document.getElementById('learnTxt').textContent=dict[l].learn;
+ document.getElementById('codeTxt').textContent=dict[l].code;
+ document.getElementById('servTxt').textContent=dict[l].serv;
+ updateUser();
+}
+function updateUser(){const s=DKAuth.session(),name=s?s.u:'Guest';let U={};try{U=JSON.parse(localStorage.getItem('DK_USERS_V2')||'{}')}catch(e){}const r=U['u_'+name.toLowerCase()]||{};document.getElementById('userText').textContent=name+(r.phone||r.email?' • '+(r.phone||r.email):'')}
+updateUser();
+
+</script>
+<script src="fx.js"></script><script src="dk3d.js"></script>
+</body>
+</html>
